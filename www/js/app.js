@@ -47,10 +47,6 @@ angular.module('starter', ['ionic'])
   $scope.mpg = 20;
   setInterval(gps, 1000);
 
-  $scope.$watch('totalMiles', function(newValue, oldValue, scope) {
-    scope.totalMiles = newValue;
-    console.log('a');
-  });
   function gps(){
     $scope.totalMiles ++;
 
