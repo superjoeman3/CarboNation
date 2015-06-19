@@ -17,6 +17,17 @@ angular.module('starter', ['ionic'])
         }
       }
     })
+
+     .state('tabs.stats', {
+        url: "/stats",
+        views: {
+          'stats-tab': {
+            templateUrl: "templates/stats.html",
+            controller: 'statsTabCtrl'
+        }
+      }
+    })
+
     .state('tabs.active', {
       url: "/active",
       views: {
@@ -38,6 +49,12 @@ angular.module('starter', ['ionic'])
   $scope.startClick = function(){
     $state.go('tabs.active');
     //@todo: save mpg value
+  }
+})
+
+.controller('statsTabCtrl', function($scope, $state) { 
+  $scope.startClick = function(){
+    $state.go('tabs.stats');
   }
 })
 

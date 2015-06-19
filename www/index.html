@@ -53,6 +53,10 @@
         <ion-nav-view name="active-tab"></ion-nav-view>
       </ion-tab>
 
+      <ion-tab title="stats" icon="ion-stats" href="#/tab/stats">
+        <ion-nav-view name="stats-tab"></ion-navs-view>
+      </ion-tab>
+
       </ion-tab>
 
     </ion-tabs>
@@ -80,10 +84,13 @@
 
           <div class="row">This Trip: {{totalMiles}} miles</div>
           <div class="row">CO2 Emitted: {{carbon}} lbs.</div>
+          <div class="row">Equivilent to the carbon dioxide sequestered by blank trees per year</div>
           <button class="button button-block button-positive">Stop</button>
 
       </ion-content>
     </ion-view>
   </script>
+
+  
   </body>
 </html>
