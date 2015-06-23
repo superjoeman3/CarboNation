@@ -61,7 +61,7 @@ angular.module('starter', ['ionic'])
 
 .controller('ActiveTabCtrl', function($scope, $state) { 
   $scope.totalMiles = 0;
-  $scope.mpg = 20;
+  $scope.mpg = 19;
   setInterval(gps, 1000);
 
   function gps(){
