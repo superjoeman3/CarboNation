@@ -20,6 +20,7 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
   </head>
   <body ng-app="starter" {="" background-color:yellow;="" }="">
 
@@ -90,6 +91,19 @@
     </ion-view>
   </script>
 
+  <script id="templates/stats.html" type="text/ng-template">
+    <ion-view view-title="Facts">
+      <ion-content class="padding">
+
+        <div ng-repeat="trip in trips">
+          Date: {{trip.createdAt}}<br>
+          Miles: {{trip.miles}}<br>
+          Emissions: {{trip.emissions}}
+        </div>
+
+      </ion-content>
+    </ion-view>
+  </script>
   
   </body>
 </html>

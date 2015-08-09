@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'starter.services'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -53,10 +53,11 @@ angular.module('starter', ['ionic'])
   }
 })
 
-.controller('statsTabCtrl', function($scope, $state) { 
+.controller('statsTabCtrl', function($scope, $state, Data) { 
+    $scope.trips = Data.getAll({id: "1"});
 })
 
-.controller('ActiveTabCtrl', function($scope, $state) { 
+.controller('ActiveTabCtrl', function($scope, $state, Data) { 
   $scope.totalMiles = 0;
   $scope.mpg = window.localStorage['mpg'];
   var counter = setInterval(gps, 1000);
@@ -69,6 +70,15 @@ angular.module('starter', ['ionic'])
   
   $scope.stopClick = function(){
     clearInterval(counter);
+    var data = {
+      user: "1",
+      //date: new Date(),
+      miles: $scope.totalMiles,
+      emissions: $scope.carbon
+    };
+    Data.create(data).success(function(data){
+            $state.go('stats');
+        });
     alert("trip ended");
   }
 });
