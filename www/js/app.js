@@ -54,11 +54,7 @@ angular.module('starter', ['ionic'])
 })
 
 .controller('statsTabCtrl', function($scope, $state) { 
-  $scope.startClick = function(){
-    $state.go('tabs.stats');
-  }
 })
-
 
 .controller('ActiveTabCtrl', function($scope, $state) { 
   $scope.totalMiles = 0;
@@ -69,5 +65,9 @@ angular.module('starter', ['ionic'])
     $scope.totalMiles ++;
     $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
     $scope.$apply();
+  }
+  
+  $scope.stopClick = function(){
+    alert("trip ended");
   }
 });
