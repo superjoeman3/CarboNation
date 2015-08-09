@@ -59,7 +59,7 @@ angular.module('starter', ['ionic'])
 .controller('ActiveTabCtrl', function($scope, $state) { 
   $scope.totalMiles = 0;
   $scope.mpg = window.localStorage['mpg'];
-  setInterval(gps, 1000);
+  var counter = setInterval(gps, 1000);
 
   function gps(){
     $scope.totalMiles ++;
@@ -68,6 +68,7 @@ angular.module('starter', ['ionic'])
   }
   
   $scope.stopClick = function(){
+    clearInterval(counter);
     alert("trip ended");
   }
 });
