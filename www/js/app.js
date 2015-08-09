@@ -46,9 +46,10 @@ angular.module('starter', ['ionic'])
 
 
 .controller('HomeTabCtrl', function($scope, $state) { 
-  $scope.startClick = function(){
+  $scope.settings = window.localStorage;
+  $scope.start = function(settings){
+    window.localStorage['mpg'] = parseFloat(settings.mpg);
     $state.go('tabs.active');
-    //@todo: save mpg value
   }
 })
 
@@ -61,12 +62,12 @@ angular.module('starter', ['ionic'])
 
 .controller('ActiveTabCtrl', function($scope, $state) { 
   $scope.totalMiles = 0;
-  $scope.mpg = 19;
+  $scope.mpg = window.localStorage['mpg'];
   setInterval(gps, 1000);
 
   function gps(){
     $scope.totalMiles ++;
-
     $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
+    $scope.$apply();
   }
 });

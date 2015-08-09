@@ -67,17 +67,16 @@
 
   <script id="templates/home.html" type="text/ng-template">
     <ion-view view-title="Home">
-      <ion-content class="padding">
-        <div class="row">`
-          <label class="p1">MPG:</label> 
-          <input type="text" name="mpg" placeholder="Input Your MPG" />
+      <form ng-submit="start(settings)">
+        <div class="list">
+          <label class="item item-input">
+            <input type="text" placeholder="What is your MPG?" ng-model="settings.mpg" ng-value="{{settings.mpg}}">
+          </label>
         </div>
-          <div class="row">
-            <div class="center">
-              <button class="button button-block button-positive" ng-click="startClick()">Start</button>
-            </div>
-          </div>
-      </ion-content>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Start</button>
+        </div>
+      </form>
     </ion-view>
   </script>
 
