@@ -49,6 +49,8 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   $scope.settings = window.localStorage;
   $scope.start = function(settings){
     window.localStorage['mpg'] = parseFloat(settings.mpg);
+    $scope.totalMiles = 0
+    $scope.carbon = 0
     $state.go('tabs.active');
   }
 })
