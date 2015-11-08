@@ -68,11 +68,14 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
       // An error occurred.
     }, 
     function(position) {
-      // Active updates of the position here
-      // position.coords.[ latitude / longitude]
-     // this is where you will add your code to track changes in co-ordinates
-     $scope.lat = position.coords.latitude;
-     alert(position.coords.latitude);
+
+      if ($scope.lat != undefined) {
+        $scope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
+        $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
+        $scope.$apply();
+      }
+      $scope.lat = position.coords.latitude;
+      $scope.lon = position.coords.longitude;
   });
 
   function gps(){
