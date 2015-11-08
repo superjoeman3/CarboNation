@@ -60,10 +60,9 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 .controller('ActiveTabCtrl', function($scope, $state, Data, $cordovaGeolocation) { 
   $scope.totalMiles = 0;
   $scope.mpg = window.localStorage['mpg'];
-  var counter = setInterval(gps, 1000);
 
-  var watch = $cordovaGeolocation.watchPosition({ frequency: 1000 });
-  watch.then(function() { /* Not  used */ }, 
+  /*window.watch = $cordovaGeolocation.watchPosition({ frequency: 1000 });
+  window.watch.then(function() {}, 
     function(err) {
       // An error occurred.
     }, 
@@ -76,30 +75,43 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
       }
       $scope.lat = position.coords.latitude;
       $scope.lon = position.coords.longitude;
-  });
+      alert(position.coords.latitude);
+  });*/
 
-  function gps(){
-    $scope.totalMiles ++;
-    $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
-    $scope.$apply();
+  var counter = setInterval(gps, 3000);
+
+
+  function gps() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      if ($scope.lat != undefined) {
+        $scope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
+        $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
+        $scope.$apply();
+      }
+      alert($scope.lat);
+      $scope.lat = position.coords.latitude;
+      $scope.lon = position.coords.longitude;
+    });
   }
 
-  function dist(lat1, lon1, lat2, lon2) {
-    // Distance haversine formula from http://www.movable-type.co.uk/scripts/latlong.html.
-    var R = 6371000; // metres
-    var φ1 = lat1.toRadians();
-    var φ2 = lat2.toRadians();
-    var Δφ = (lat2-lat1).toRadians();
-    var Δλ = (lon2-lon1).toRadians();
 
-    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-    var d = R * c; // meters
-    d = d * 0.00062137; // miles
+  function dist(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    d = d * 0.62137; // miles
     return d;
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI/180)
   }
   
   $scope.stopClick = function(){
