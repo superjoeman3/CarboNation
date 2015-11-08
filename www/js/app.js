@@ -88,7 +88,6 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
         $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
         $scope.$apply();
       }
-      alert($scope.lat);
       $scope.lat = position.coords.latitude;
       $scope.lon = position.coords.longitude;
     });
