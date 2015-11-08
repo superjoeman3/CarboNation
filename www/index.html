@@ -16,6 +16,7 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
@@ -81,7 +82,7 @@
   <script id="templates/active.html" type="text/ng-template">
     <ion-view view-title="Facts">
       <ion-content class="padding">
-
+{{lat}}
           <div class="row">This Trip: {{totalMiles}} miles</div>
           <div class="row">CO2 Emitted: {{carbon}} lbs.</div>
           <div class="row">Equivilent to the carbon dioxide sequestered by blank trees per year</div>
