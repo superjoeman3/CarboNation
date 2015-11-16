@@ -124,7 +124,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
       emissions: $scope.carbon
     };
     Data.create(data).success(function(data){
-      $state.go('stats');
+      $state.go('tabs.stats');
     });
   }
 });
