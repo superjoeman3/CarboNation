@@ -45,12 +45,13 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 
 
 
-.controller('HomeTabCtrl', function($scope, $state) { 
+.controller('HomeTabCtrl', function($scope, $rootScope, $state) { 
   $scope.settings = window.localStorage;
   $scope.start = function(settings){
     window.localStorage['mpg'] = parseFloat(settings.mpg);
-    $scope.totalMiles = 0
-    $scope.carbon = 0
+    $rootScope.totalMiles = 0;
+    $rootScope.carbon = 0;
+    $rootScope.tree = 0;
     $state.go('tabs.active');
   }
 })
@@ -59,7 +60,6 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
     Data.getAll({id: "1"}).success(function(data){
       $scope.trips=data.results;
       $scope.totalMiles=0;
-      $scope.totalEmissions=0;
       for(var i=0; i < $scope.trips.length; i++) {
         $scope.totalMiles+=$scope.trips[i].miles;
         $scope.totalEmissions+=$scope.trips[i].emissions;
@@ -68,20 +68,17 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
     });
 })
 
-.controller('ActiveTabCtrl', function($scope, $state, Data, $cordovaDevice) { 
-  $scope.totalMiles = 0;
+.controller('ActiveTabCtrl', function($scope, $rootScope, $state, Data, $cordovaDevice) { 
+  console.log($scope.totalEmissions);
   $scope.mpg = window.localStorage['mpg'];
-
-
-  var counter = setInterval(gps, 3000);
-
+  var counter = setInterval(gps, 1000);
 
   function gps() {
     navigator.geolocation.getCurrentPosition(function(position) {
       if ($scope.lat != undefined) {
-        $scope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
-        $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
-        $scope.tree=$scope.carbon/26;
+        $rootScope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
+        $rootScope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
+        $rootScope.tree=$scope.carbon/26;
         $scope.$apply();
       }
       $scope.lat = position.coords.latitude;
@@ -112,12 +109,13 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   $scope.stopClick = function(){
     clearInterval(counter);
     var data = {
-      user: $cordovaDevice.getUUID(),
+      user: "1",//$cordovaDevice.getUUID(),
       //date: new Date(),
-      miles: $scope.totalMiles,
-      emissions: $scope.carbon
+      miles: $rootScope.totalMiles,
+      emissions: $rootScope.carbon
     };
     Data.create(data).success(function(data){
+      console.log(data);
       $state.go('tabs.stats');
     });
   }
