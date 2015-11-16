@@ -2,13 +2,13 @@
 <widget id="com.ionicframework.carbonation827894" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>CarboNation</name>
   <description>
-        An Ionic Framework and Cordova project.
+      Track your carbon dioxide emissions.
     </description>
   <author email="CarboNation@gmail.com" href="http://ionicframework.com/">
-      Ionic Framework Team
+      superjoeman3
     </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  <access origin="http://*.parse.com" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
