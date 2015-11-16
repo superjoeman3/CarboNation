@@ -2,3 +2,18 @@
 home {
 	background-color: yellow;
 }
+
+.stats {
+}
+
+.trip-teaser,
+.stats-bar {
+	padding: 5px;
+	border: 1px solid #ccc;
+	margin-bottom: 1em;
+	background-color: #eaf3fc;
+}
+
+.stats-bar {
+	background-color: #4aec61;
+}

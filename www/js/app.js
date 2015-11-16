@@ -56,29 +56,22 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 })
 
 .controller('statsTabCtrl', function($scope, $state, Data) { 
-    $scope.trips = Data.getAll({id: "1"});
+    Data.getAll({id: "1"}).success(function(data){
+      $scope.trips=data.results;
+      $scope.totalMiles=0;
+      $scope.totalEmissions=0;
+      for(var i=0; i < $scope.trips.length; i++) {
+        $scope.totalMiles+=$scope.trips[i].miles;
+        $scope.totalEmissions+=$scope.trips[i].emissions;
+      }
+      console.log($scope.trips);
+    });
 })
 
 .controller('ActiveTabCtrl', function($scope, $state, Data, $cordovaDevice) { 
   $scope.totalMiles = 0;
   $scope.mpg = window.localStorage['mpg'];
 
-  /*window.watch = $cordovaGeolocation.watchPosition({ frequency: 1000 });
-  window.watch.then(function() {}, 
-    function(err) {
-      // An error occurred.
-    }, 
-    function(position) {
-
-      if ($scope.lat != undefined) {
-        $scope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
-        $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
-        $scope.$apply();
-      }
-      $scope.lat = position.coords.latitude;
-      $scope.lon = position.coords.longitude;
-      alert(position.coords.latitude);
-  });*/
 
   var counter = setInterval(gps, 3000);
 
@@ -88,6 +81,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
       if ($scope.lat != undefined) {
         $scope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
         $scope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
+        $scope.tree=$scope.carbon/26;
         $scope.$apply();
       }
       $scope.lat = position.coords.latitude;

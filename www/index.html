@@ -82,10 +82,9 @@
   <script id="templates/active.html" type="text/ng-template">
     <ion-view view-title="Facts">
       <ion-content class="padding">
-{{lat}}
-          <div class="row">This Trip: {{totalMiles}} miles</div>
-          <div class="row">CO2 Emitted: {{carbon}} lbs.</div>
-          <div class="row">Equivilent to the carbon dioxide sequestered by blank trees per year</div>
+          <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
+          <div class="row">CO2 Emitted: {{carbon | number: 3}} lbs.</div>
+          <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>
           <button class="button button-block button-positive" ng-click="stopClick()">Stop</button>
 
       </ion-content>
@@ -94,12 +93,17 @@
 
   <script id="templates/stats.html" type="text/ng-template">
     <ion-view view-title="Facts">
-      <ion-content class="padding">
+      <ion-content class="padding stats">
+       
+        <div class="stats-bar">
+          Total Miles: {{totalMiles | number: 3}} miles<br>
+          Total Emissions: {{totalEmissions | number: 3}} lbs. of CO<sub>2</sub>
+        </div>
 
-        <div ng-repeat="trip in trips">
-          Date: {{trip.createdAt}}<br>
-          Miles: {{trip.miles}}<br>
-          Emissions: {{trip.emissions}}
+        <div ng-repeat="trip in trips | orderBy:'-createdAt'" class="trip-teaser">
+          Date: {{trip.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}<br>
+          Distance: {{trip.miles | number: 3}} miles<br>
+          Emissions: {{trip.emissions | number: 3}} lbs. CO<sub>2</sub>
         </div>
 
       </ion-content>
