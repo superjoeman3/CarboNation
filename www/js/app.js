@@ -59,7 +59,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
     $scope.trips = Data.getAll({id: "1"});
 })
 
-.controller('ActiveTabCtrl', function($scope, $state, Data, $cordovaGeolocation) { 
+.controller('ActiveTabCtrl', function($scope, $state, Data, $cordovaDevice) { 
   $scope.totalMiles = 0;
   $scope.mpg = window.localStorage['mpg'];
 
@@ -118,14 +118,13 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   $scope.stopClick = function(){
     clearInterval(counter);
     var data = {
-      user: "1",
+      user: $cordovaDevice.getUUID(),
       //date: new Date(),
       miles: $scope.totalMiles,
       emissions: $scope.carbon
     };
     Data.create(data).success(function(data){
-            $state.go('stats');
-        });
-    alert("trip ended");
+      $state.go('stats');
+    });
   }
 });
