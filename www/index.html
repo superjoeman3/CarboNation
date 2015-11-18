@@ -55,28 +55,35 @@
   </script>
 
   <script id="templates/home.html" type="text/ng-template">
-    <ion-view view-title="Home">
-      <form ng-submit="start(settings)">
-        <div class="list">
-          <label class="item item-input">
-            <input type="text" placeholder="What is your MPG?" ng-model="settings.mpg" ng-value="{{settings.mpg}}">
-          </label>
-        </div>
-        <div class="padding">
-          <button type="submit" class="button button-block button-positive">Start</button>
-        </div>
-      </form>
+    <ion-view view-title="Welcome to Carbonation">
+      <ion-content class="padding">
+        <p>Enter your miles per gallon and click Start to begin tracking your carbon dioxide emissions every time you get in your car.</p>
+        <form ng-submit="start(settings)">
+          <div class="list">
+            <label class="item item-input">
+              <input type="text" placeholder="What is your MPG?" ng-model="settings.mpg" ng-value="{{settings.mpg}}">
+            </label>
+          </div>
+          <div class="padding">
+            <button type="submit" class="button button-block button-positive">Start</button>
+          </div>
+        </form>
+      </ion-content>
     </ion-view>
   </script>
 
   <script id="templates/active.html" type="text/ng-template">
     <ion-view view-title="Collecting data">
       <ion-content class="padding">
+        <div ng-if="totalMiles">
           <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
           <div class="row">CO2 Emitted: {{carbon | number: 3}} lbs.</div>
           <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>
           <button class="button button-block button-positive" ng-click="stopClick()">Stop</button>
-
+        </div>
+        <div ng-if="!totalMiles">
+          Hold on, we're just starting to collect data.
+        </div>
       </ion-content>
     </ion-view>
   </script>

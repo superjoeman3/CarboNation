@@ -1,11 +1,12 @@
 angular.module('starter.services',[]).factory('Data',['$http','PARSE_CREDENTIALS',function($http,PARSE_CREDENTIALS){
     return {
-        getAll:function(){
-            return $http.get('https://api.parse.com/1/classes/Data',{
+        getAll:function(query){
+            return $http.get('https://api.parse.com/1/classes/Data?t='+Date.now()+'&'+query,{
                 headers:{
                     'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
                     'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
-                }
+                }, 
+                cache: false
             });
         },
         get:function(id){

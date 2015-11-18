@@ -56,8 +56,8 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   }
 })
 
-.controller('statsTabCtrl', function($scope, $state, Data) { 
-    Data.getAll({id: "1"}).success(function(data){
+.controller('statsTabCtrl', function($scope, $state, $cordovaDevice, Data) { 
+    Data.getAll('where={"user":"'+ $cordovaDevice.getUUID() +'"}').success(function(data){
       $scope.trips=data.results;
       $scope.totalMiles=0;
       for(var i=0; i < $scope.trips.length; i++) {
@@ -109,10 +109,10 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   $scope.stopClick = function(){
     clearInterval(counter);
     var data = {
-      user: "1",//$cordovaDevice.getUUID(),
+      user: $cordovaDevice.getUUID(),
       //date: new Date(),
-      miles: $rootScope.totalMiles,
-      emissions: $rootScope.carbon
+      miles: $rootScope.totalMiles ? $rootScope.totalMiles : 0,
+      emissions: $rootScope.carbon ? $rootScope.carbon : 0
     };
     Data.create(data).success(function(data){
       console.log(data);
