@@ -48,7 +48,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 .controller('HomeTabCtrl', function($scope, $rootScope, $state) { 
   $scope.settings = window.localStorage;
   $scope.start = function(settings){
-    window.localStorage['mpg'] = parseFloat(settings.mpg);
+    window.localStorage['mpg'] = settings.mpg == undefined ? '' : parseFloat(settings.mpg);
     $rootScope.totalMiles = 0;
     $rootScope.carbon = 0;
     $rootScope.tree = 0;
@@ -57,20 +57,21 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 })
 
 .controller('statsTabCtrl', function($scope, $state, $cordovaDevice, Data) { 
-    Data.getAll('where={"user":"'+ $cordovaDevice.getUUID() +'"}').success(function(data){
-      $scope.trips=data.results;
-      $scope.totalMiles=0;
-      for(var i=0; i < $scope.trips.length; i++) {
-        $scope.totalMiles+=$scope.trips[i].miles;
-        $scope.totalEmissions+=$scope.trips[i].emissions;
-      }
-      console.log($scope.trips);
-    });
+  $scope.device = $cordovaDevice.getUUID();
+  Data.getAll('where={"user":"'+ $cordovaDevice.getUUID() +'"}').success(function(data){
+    $scope.trips=data.results;
+    $scope.totalMiles=0;
+    $scope.totalMiles=false;
+    for(var i=0; i < $scope.trips.length; i++) {
+      $scope.totalMiles+=$scope.trips[i].miles;
+      $scope.totalEmissions+=$scope.trips[i].emissions;
+    }
+  });
 })
 
 .controller('ActiveTabCtrl', function($scope, $rootScope, $state, Data, $cordovaDevice) { 
-  console.log($scope.totalEmissions);
   $scope.mpg = window.localStorage['mpg'];
+  $scope.init = false;
   var counter = setInterval(gps, 1000);
 
   function gps() {
@@ -79,6 +80,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
         $rootScope.totalMiles += dist($scope.lat, $scope.lon, position.coords.latitude, position.coords.longitude);
         $rootScope.carbon = (19.64/$scope.mpg) * $scope.totalMiles;
         $rootScope.tree=$scope.carbon/26;
+        $scope.init = true;
         $scope.$apply();
       }
       $scope.lat = position.coords.latitude;
@@ -115,7 +117,6 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
       emissions: $rootScope.carbon ? $rootScope.carbon : 0
     };
     Data.create(data).success(function(data){
-      console.log(data);
       $state.go('tabs.stats');
     });
   }
