@@ -93,7 +93,7 @@
   <script id="templates/stats.html" type="text/ng-template">
     <ion-view view-title="Your trips">
       <ion-content class="padding stats">
-        <div class="stats-bar">
+       <!-- <div class="stats-bar">
           Total Miles: {{totalMiles | number: 3}} miles<br>
           Total Emissions: {{totalEmissions | number: 3}} lbs. of CO<sub>2</sub>
         </div>
@@ -102,7 +102,8 @@
           Date: {{trip.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}<br>
           Distance: {{trip.miles | number: 3}} miles<br>
           Emissions: {{trip.emissions | number: 3}} lbs. CO<sub>2</sub>
-        </div>
+        </div> -->
+        <p> Stats are not displayed during control group testing. Thank you!</p>
 
         <p>Your device id: {{device}}</p>
       </ion-content>
