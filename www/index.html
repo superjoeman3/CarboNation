@@ -76,10 +76,11 @@
   <script id="templates/active.html" type="text/ng-template">
     <ion-view view-title="Collecting data">
       <ion-content class="padding">
-        <div ng-if="init">
+       <!-- <div ng-if="init">
           <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
           <div class="row">CO2 Emitted: {{carbon | number: 3}} lbs.</div>
-          <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>
+          <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>-->
+          <p>Please press the stop button when you are finished driving.</p>
           <button class="button button-block button-positive" ng-click="stopClick()">Stop</button>
         </div>
         <div ng-if="!init">
