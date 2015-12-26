@@ -48,6 +48,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
 .controller('HomeTabCtrl', function($scope, $rootScope, $state) { 
   $scope.settings = window.localStorage;
   $scope.start = function(settings){
+    window.plugins.insomnia.keepAwake();
     window.localStorage['mpg'] = settings.mpg == undefined ? '' : parseFloat(settings.mpg);
     $rootScope.totalMiles = 0;
     $rootScope.carbon = 0;
@@ -109,6 +110,7 @@ angular.module('starter', ['ionic', 'starter.services', 'ngCordova'])
   }
   
   $scope.stopClick = function(){
+    window.plugins.insomnia.allowSleepAgain();
     clearInterval(counter);
     var data = {
       user: $cordovaDevice.getUUID(),
