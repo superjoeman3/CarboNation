@@ -58,7 +58,11 @@
   <script id="templates/home.html" type="text/ng-template">
     <ion-view view-title="Welcome to Carbonation">
       <ion-content class="padding">
-        <p>Enter your miles per gallon and click Start to begin tracking your carbon dioxide emissions every time you get in your car.</p>
+        <p><b><u>Directions:</u></b></p>
+        <p>1. Please enter the MPG of your car in the indicated field.</p>
+        <p>2. Press the 'start' button before beginning your drive.</p>
+        <p>3. Do not leave the app while driving - your phone will automatically remain on during the drive.</p>
+        <p>4. Press the stop button when finished driving. Thank you!</p>
         <form ng-submit="start(settings)">
           <div class="list">
             <label class="item item-input">
@@ -80,7 +84,8 @@
           <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
           <div class="row">CO2 Emitted: {{carbon | number: 3}} lbs.</div>
           <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>-->
-          <p>Please press the stop button when you are finished driving.</p>
+          <p>Please leave the app on while driving.</p>
+          <p>Make sure to press the stop button when you are finished with your trip.</p>
           <button class="button button-block button-positive" ng-click="stopClick()">Stop</button>
         </div>
         <div ng-if="!init">
@@ -103,7 +108,8 @@
           Distance: {{trip.miles | number: 3}} miles<br>
           Emissions: {{trip.emissions | number: 3}} lbs. CO<sub>2</sub>
         </div> -->
-        <p> Stats are not displayed during control group testing. Thank you!</p>
+        <p> Stats are not displayed during control group testing.</p>
+        <p>Please record your emissions every time you drive your automobile. Thank you!</p>
 
         <p>Your device id: {{device}}</p>
       </ion-content>
