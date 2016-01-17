@@ -81,9 +81,9 @@
     <ion-view view-title="Collecting data">
       <ion-content class="padding">
        <div ng-if="init">
-         <!-- <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
+         <div class="row">This Trip: {{totalMiles | number: 3}} miles</div>
           <div class="row">CO2 Emitted: {{carbon | number: 3}} lbs.</div>
-          <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div> -->
+          <div class="row">Equivilent to the carbon dioxide sequestered by {{tree | number: 3}} trees per year</div>
           <p>Please leave the app on while driving.</p>
           <p>Make sure to press the stop button when you are finished with your trip.</p>
           <button class="button button-block button-positive" ng-click="stopClick()">Stop</button>
@@ -98,16 +98,16 @@
   <script id="templates/stats.html" type="text/ng-template">
     <ion-view view-title="Your trips">
       <ion-content class="padding stats">
-       <!-- <div class="stats-bar">
+        <div class="stats-bar">
           Total Miles: {{totalMiles | number: 3}} miles<br>
           Total Emissions: {{totalEmissions | number: 3}} lbs. of CO<sub>2</sub>
-        </div> -->
+        </div>
 
-     <!--   <div ng-repeat="trip in trips | orderBy:'-createdAt'" class="trip-teaser">
+        <div ng-repeat="trip in trips | orderBy:'-createdAt'" class="trip-teaser">
           Date: {{trip.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}<br>
           Distance: {{trip.miles | number: 3}} miles<br>
           Emissions: {{trip.emissions | number: 3}} lbs. CO<sub>2</sub>
-        </div> -->
+        </div>
         <p> Stats are not displayed during control group testing.</p>
         <p>Please record your emissions every time you drive your automobile. Thank you!</p>
 
